@@ -54,11 +54,11 @@ public class CreatePersonCommandHandlerTests
     {
         // Arrange
         var createPersonCommand = new CreatePersonCommand(Name: "John", LastName: "Doe", PersonalNumber: "123456789", BirthDate: new DateTime(1990, 1, 1), Gender: GenderEnum.Male, CityId: 1);
-        var existingCity = Domain.Aggregates.City.City.Create("Tbilisi");
+        var city = Domain.Aggregates.City.City.Create(name: "Tbilisi");
 
         _cityRepositoryMock
             .Setup(repo => repo.GetByIdAsync(createPersonCommand.CityId))
-            .ReturnsAsync(existingCity);
+            .ReturnsAsync(city);
 
         _personRepositoryMock
             .Setup(repo => repo.AnyAsync(p => p.PersonalNumber == createPersonCommand.PersonalNumber.Trim()))
@@ -77,7 +77,7 @@ public class CreatePersonCommandHandlerTests
     {
         // Arrange
         var createPersonCommand = new CreatePersonCommand(Name: "John", LastName: "Doe", PersonalNumber: "123456789", BirthDate: new DateTime(1990, 1, 1), Gender: GenderEnum.Male, CityId: 1);
-        var existingCity = Domain.Aggregates.City.City.Create("Tbilisi");
+        var existingCity = Domain.Aggregates.City.City.Create(name:"Tbilisi");
 
         _cityRepositoryMock
             .Setup(repo => repo.GetByIdAsync(createPersonCommand.CityId))

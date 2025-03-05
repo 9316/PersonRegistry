@@ -84,7 +84,7 @@ public class UpdatePersonCommandHandlerTests
         var cityId = 2; 
 
         var command = new UpdatePersonCommand(Id: 1, name, lastName, personalNumber, birthDate, gender, cityId);
-        var person = Domain.Aggregates.Person.Person.Create(name:"OldName", lastName: "OldLastName", personalNumber: "123456789", birthDate: new DateTime(1990, 1, 1), gender, cityId: 1);
+        var person = Domain.Aggregates.Person.Person.Create(name: "OldName", lastName: "OldLastName", personalNumber: "123456789", birthDate: new DateTime(1990, 1, 1), gender, cityId: 1);
 
         _cityRepositoryMock
             .Setup(repo => repo.AnyAsync(x => x.Id == command.CityId))
