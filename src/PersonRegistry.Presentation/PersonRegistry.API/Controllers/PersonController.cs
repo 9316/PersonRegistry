@@ -9,7 +9,7 @@ using PersonRegistry.Application.Person.Queries.GetPerson;
 using PersonRegistry.Application.Person.Queries.GetPersonRelationReport;
 using PersonRegistry.Application.Person.Queries.GetPersons;
 using PersonRegistry.Common.Application.Paging;
-using PersonDirectory.API.Mappers;
+using PersonRegistry.API.Mappers;
 using PersonRegistry.Application.Person.Commands.Delete;
 
 namespace PersonRegistry.API.Controllers;

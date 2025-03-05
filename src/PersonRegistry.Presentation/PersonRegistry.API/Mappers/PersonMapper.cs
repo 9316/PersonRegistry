@@ -6,7 +6,7 @@ using PersonRegistry.Application.Person.Queries.DownloadPersonImage;
 using PersonRegistry.Application.Person.Queries.GetPerson;
 using PersonRegistry.Application.Person.Queries.GetPersons;
 
-namespace PersonDirectory.API.Mappers;
+namespace PersonRegistry.API.Mappers;
 
 /// <summary>
 /// Provides static mapping methods for converting request models to commands and queries.

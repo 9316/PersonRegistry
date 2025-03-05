@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using PersonDirectory.API.Mappers;
+using PersonRegistry.API.Mappers;
 using PersonRegistry.API.Tests.TestData;
 
 /// <summary>
