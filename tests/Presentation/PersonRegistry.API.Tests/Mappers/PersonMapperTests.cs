@@ -11,7 +11,7 @@ public class PersonMapperTests
     public void ToPersonQuery_WhenRequestIsValid_ShouldMapCorrectly()
     {
         // Arrange
-        var request = PersonTestData.BuildGetPersonModelRequest(1);
+        var request = PersonTestData.BuildGetPersonModelRequest(id: PersonTestData.PERSON_ID);
 
         // Act
         var query = request.ToPersonQuery();
@@ -120,7 +120,7 @@ public class PersonMapperTests
     public void ToDeletePersonCommand_WhenRequestIsValid_ShouldMapCorrectly()
     {
         // Arrange
-        var deletePersonRequest = PersonTestData.BuildDeletePersonRequest(PersonTestData.PERSON_ID);
+        var deletePersonRequest = PersonTestData.BuildDeletePersonRequest(id: PersonTestData.PERSON_ID);
 
         // Act
         var result = deletePersonRequest.ToDeletePersonCommand();
@@ -134,7 +134,7 @@ public class PersonMapperTests
     public void ToDeletePersonPhotoCommand_WhenRequestIsValid_ShouldMapCorrectly()
     {
         // Arrange
-        var deletePersonPhotoRequest = PersonTestData.BuildDeletePersonPhotoRequest(PersonTestData.PERSON_ID);
+        var deletePersonPhotoRequest = PersonTestData.BuildDeletePersonPhotoRequest(personId: PersonTestData.PERSON_ID);
 
         // Act
         var result = deletePersonPhotoRequest.ToDeletePersonPhotoCommand();

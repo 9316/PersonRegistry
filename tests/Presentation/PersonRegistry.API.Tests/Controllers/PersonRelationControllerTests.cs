@@ -24,8 +24,8 @@ public class PersonRelationControllerTests
     public async Task CreatePersonRelation_ShouldCallMediatR_WhenCalled()
     {
         // Arrange
-        var buildCreatePersonRelationRequest = PersonRelationTestData.BuildCreatePersonRelationRequest();
         var relationId = PersonRelationTestData.RELATION_ID;
+        var buildCreatePersonRelationRequest = PersonRelationTestData.BuildCreatePersonRelationRequest();
 
         _mediator.Send(Arg.Any<CreatePersonRelationCommand>(), Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(relationId));
@@ -42,7 +42,7 @@ public class PersonRelationControllerTests
     public async Task DeletePerson_ShouldCallMediatR_WhenCalled()
     {
         // Arrange
-        var deletePersonRelationRequest = PersonRelationTestData.BuildDeletePersonRelationRequest(PersonRelationTestData.PERSON_ID);
+        var deletePersonRelationRequest = PersonRelationTestData.BuildDeletePersonRelationRequest(personId: PersonRelationTestData.PERSON_ID);
 
         // Act
         await _personRelationController.DeletePerson(deletePersonRelationRequest, CancellationToken.None);

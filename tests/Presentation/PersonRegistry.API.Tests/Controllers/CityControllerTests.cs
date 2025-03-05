@@ -16,26 +16,26 @@ namespace PersonRegistry.API.Tests.Controllers;
 public class CityControllerTests
 {
     private readonly IMediator _mediator;
-    private readonly CityController _controller;
+    private readonly CityController _cityController;
 
     public CityControllerTests()
     {
         _mediator = Substitute.For<IMediator>();
-        _controller = new CityController(_mediator);
+        _cityController = new CityController(_mediator);
     }
 
     [Fact]
     public async Task CreateCity_ShouldReturnCityId_WhenRequestIsValid()
     {
         // Arrange
-        var createCityModelRequest = CityTestData.BuildCreateCityModelRequest("City");
         var cityId = CityTestData.CITY_ID;
+        var createCityModelRequest = CityTestData.BuildCreateCityModelRequest(name: "City");
 
         _mediator.Send(Arg.Any<CreateCityCommand>(), Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(cityId));
 
         // Act
-        var result = await _controller.CreateCity(createCityModelRequest, CancellationToken.None);
+        var result = await _cityController.CreateCity(createCityModelRequest, CancellationToken.None);
 
         // Assert
         result.Should().Be(cityId);
@@ -46,7 +46,7 @@ public class CityControllerTests
     public async Task GetCities_ShouldReturnPagedResult_WhenCalled()
     {
         // Arrange
-        var cityModelRequest = CityTestData.BuildCityModelRequest("City");
+        var cityModelRequest = CityTestData.BuildCityModelRequest(filterQuery: "City");
 
         var pagedCityResponse = CityTestData.BuildPagedCityResponse();
 
@@ -54,7 +54,7 @@ public class CityControllerTests
             .Returns(Task.FromResult(pagedCityResponse));
 
         // Act
-        var result = await _controller.GetCities(cityModelRequest, CancellationToken.None);
+        var result = await _cityController.GetCities(cityModelRequest, CancellationToken.None);
 
         // Assert
         result.Should().BeEquivalentTo(pagedCityResponse);
@@ -65,10 +65,10 @@ public class CityControllerTests
     public async Task UpdateCity_ShouldCallMediatR_WhenRequestIsValid()
     {
         // Arrange
-        var updateCityModelRequest = CityTestData.BuildUpdateCityModelRequest(CityTestData.CITY_ID, "City");
+        var updateCityModelRequest = CityTestData.BuildUpdateCityModelRequest(id: CityTestData.CITY_ID, name: "City");
 
         // Act
-        await _controller.UpdateCity(updateCityModelRequest, CancellationToken.None);
+        await _cityController.UpdateCity(updateCityModelRequest, CancellationToken.None);
 
         // Assert
         await _mediator.Received(1).Send(Arg.Any<UpdateCityCommand>(), Arg.Any<CancellationToken>());
@@ -78,10 +78,10 @@ public class CityControllerTests
     public async Task DeleteCity_ShouldCallMediatR_WhenRequestIsValid()
     {
         // Arrange
-        var deleteCityModelRequest = CityTestData.BuildDeleteCityModelRequest(CityTestData.CITY_ID);
+        var deleteCityModelRequest = CityTestData.BuildDeleteCityModelRequest(id: CityTestData.CITY_ID);
 
         // Act
-        await _controller.DeleteCity(deleteCityModelRequest, CancellationToken.None);
+        await _cityController.DeleteCity(deleteCityModelRequest, CancellationToken.None);
 
         // Assert
         await _mediator.Received(1).Send(Arg.Any<DeleteCityCommand>(), Arg.Any<CancellationToken>());

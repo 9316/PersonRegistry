@@ -31,8 +31,8 @@ public class PersonControllerTests
     {
         // Arrange
         var personId = PersonTestData.PERSON_ID;
-        var getPersonModelRequest = PersonTestData.BuildGetPersonModelRequest(personId);
-        var getPersonModelResponse = PersonTestData.BuildGetPersonModelResponse(personId, "Name");
+        var getPersonModelRequest = PersonTestData.BuildGetPersonModelRequest(id: personId);
+        var getPersonModelResponse = PersonTestData.BuildGetPersonModelResponse(id: personId, name: "Name");
 
         _mediator.Send(Arg.Any<GetPersonQuery>(), Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(getPersonModelResponse));
@@ -49,15 +49,14 @@ public class PersonControllerTests
     public async Task GetPersons_ShouldReturnPagedResult_WhenCalled()
     {
         // Arrange
-        var request = new GetPersonsModelRequest();
-
+        var getPersonsModelRequest = new GetPersonsModelRequest();
         var pagedPersonsResponse = PersonTestData.BuildPagedPersons();
 
         _mediator.Send(Arg.Any<GetPersonsQuery>(), Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(pagedPersonsResponse));
 
         // Act
-        var result = await _personController.GetPersons(request, CancellationToken.None);
+        var result = await _personController.GetPersons(getPersonsModelRequest, CancellationToken.None);
 
         // Assert
         result.Should().BeEquivalentTo(pagedPersonsResponse);
@@ -99,7 +98,7 @@ public class PersonControllerTests
     public async Task DeletePerson_ShouldCallMediatR_WhenCalled()
     {
         // Arrange
-        var deletePersonRequest = PersonTestData.BuildDeletePersonRequest(PersonTestData.PERSON_ID);
+        var deletePersonRequest = PersonTestData.BuildDeletePersonRequest(id: PersonTestData.PERSON_ID);
 
         // Act
         await _personController.DeletePerson(deletePersonRequest, CancellationToken.None);
@@ -123,6 +122,7 @@ public class PersonControllerTests
 
         // Assert
         result.Should().BeOfType<FileContentResult>();
+
         var fileResult = (FileContentResult)result;
         fileResult.ContentType.Should().Be("image/jpeg");
         fileResult.FileContents.Should().BeEquivalentTo(fakeImageBytes);
@@ -132,7 +132,7 @@ public class PersonControllerTests
     public async Task UploadPersonPhoto_ShouldCallMediatR_WhenCalled()
     {
         // Arrange
-        var uploadPersonPhotoRequest = PersonTestData.BuildUploadPersonPhotoRequest(PersonTestData.PERSON_ID, "Photo");
+        var uploadPersonPhotoRequest = PersonTestData.BuildUploadPersonPhotoRequest(personId: PersonTestData.PERSON_ID, photo: "Photo");
 
         _mediator.Send(Arg.Any<UploadPersonPhotoCommand>(), Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(Unit.Value));

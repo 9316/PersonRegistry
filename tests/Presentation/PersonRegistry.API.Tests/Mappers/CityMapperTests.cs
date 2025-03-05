@@ -8,7 +8,7 @@ public class CityMapperTests
     public void ToCreateCommand_WhenCreateCityModelRequest_ShouldMapCorrectly()
     {
         // Arrange
-        var createCityModelRequest = CityTestData.BuildCreateCityModelRequest("Batumi");
+        var createCityModelRequest = CityTestData.BuildCreateCityModelRequest(name: "Batumi");
 
         // Act
         var result = createCityModelRequest.ToCreateCommand();
@@ -31,7 +31,7 @@ public class CityMapperTests
     public void ToCitiesQuery_WhenCityModelRequestIsValid_ShouldMapCorrectly()
     {
         // Arrange
-        var cityModelRequest = CityTestData.BuildCityModelRequest("Tbilisi");
+        var cityModelRequest = CityTestData.BuildCityModelRequest(filterQuery: "Tbilisi");
 
         // Act
         var result = cityModelRequest.ToCitiesQuery();
@@ -57,7 +57,7 @@ public class CityMapperTests
     public void ToUpdateCityCommand_WhenUpdateCityModelRequestIsValid_ShouldMapCorrectly()
     {
         // Arrange
-        var updateCityModelRequest = CityTestData.BuildUpdateCityModelRequest(CityTestData.CITY_ID, "Updated City");
+        var updateCityModelRequest = CityTestData.BuildUpdateCityModelRequest(id: CityTestData.CITY_ID, name: "Updated City");
 
         // Act
         var result = updateCityModelRequest.ToUpdateCityCommand();
@@ -82,7 +82,7 @@ public class CityMapperTests
     public void ToDeleteCityCommand_WhenDeleteCityModelRequest_ShouldMapCorrectly()
     {
         // Arrange
-        var deleteCityModelRequest = CityTestData.BuildDeleteCityModelRequest(CityTestData.CITY_ID);
+        var deleteCityModelRequest = CityTestData.BuildDeleteCityModelRequest(id: CityTestData.CITY_ID);
 
         // Act
         var result = deleteCityModelRequest.ToDeleteCityCommand();
